@@ -1,10 +1,14 @@
-import Layout from '@/components/layout';
+import Layout from '@/components/Layout';
 import styles from '../styles/home.module.css';
 import utileStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getPostsData, PostData } from '@/lib/post';
 
-export default function Home() {
+export default async function Home() {
+  // SSGの場合
+  const allPostsData: PostData[] = await getPostsData();
+  console.log(allPostsData);
   return (
     <>
       <Layout>
@@ -20,73 +24,27 @@ export default function Home() {
           </p>
         </section>
 
-        <section>
+        <section className={`${utileStyles.headingMd} ${utileStyles.padding1px}`}>
           <h2>📝旅する限界エンジニアのBLOG</h2>
           <div className={styles.grid}>
-            <article>
-              <Link href={'/'}>
-                <Image
-                  alt="記事イメージ"
-                  src="/images/thumbnail01.jpg"
-                  width={200}
-                  height={200}
-                  className={styles.thumbnailImage}
-                />
-              </Link>
-              <Link href={'/'} className={utileStyles.boldText}>
-                アボカドをタネから育てて見た
-              </Link>
-              <br />
-              <small className={utileStyles.lightText}>2025/01/01</small>
-            </article>
-            <article>
-              <Link href={'/'}>
-                <Image
-                  alt="記事イメージ"
-                  src="/images/thumbnail01.jpg"
-                  width={200}
-                  height={200}
-                  className={styles.thumbnailImage}
-                />
-              </Link>
-              <Link href={'/'} className={utileStyles.boldText}>
-                アボカドをタネから育てて見た
-              </Link>
-              <br />
-              <small className={utileStyles.lightText}>2025/01/01</small>
-            </article>
-            <article>
-              <Link href={'/'}>
-                <Image
-                  alt="記事イメージ"
-                  src="/images/thumbnail01.jpg"
-                  width={200}
-                  height={200}
-                  className={styles.thumbnailImage}
-                />
-              </Link>
-              <Link href={'/'} className={utileStyles.boldText}>
-                アボカドをタネから育てて見た
-              </Link>
-              <br />
-              <small className={utileStyles.lightText}>2025/01/01</small>
-            </article>
-            <article>
-              <Link href={'/'}>
-                <Image
-                  alt="記事イメージ"
-                  src="/images/thumbnail01.jpg"
-                  width={200}
-                  height={200}
-                  className={styles.thumbnailImage}
-                />
-              </Link>
-              <Link href={'/'} className={utileStyles.boldText}>
-                アボカドをタネから育てて見た
-              </Link>
-              <br />
-              <small className={utileStyles.lightText}>2025/01/01</small>
-            </article>
+            {allPostsData.map(({ id, date, title, thumbnail }) => (
+              <article key={id}>
+                <Link href={`/posts/${id}`}>
+                  <Image
+                    alt="記事イメージ"
+                    src={thumbnail}
+                    width={200}
+                    height={200}
+                    className={styles.thumbnailImage}
+                  />
+                </Link>
+                <Link href={`/posts/${id}`} className={utileStyles.boldText}>
+                  {title}
+                </Link>
+                <br />
+                <small className={utileStyles.lightText}>{date}</small>
+              </article>
+            ))}
           </div>
         </section>
       </Layout>
