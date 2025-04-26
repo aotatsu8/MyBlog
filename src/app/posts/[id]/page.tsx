@@ -10,7 +10,7 @@ import utileStyles from '../../../styles/utils.module.css';
 import { notFound } from 'next/navigation';
 
 // 各ページのパラメータを生成（SSG対象）
-export default async function PostPage(props: { params: { id: string } }) {
+export default async function PostPage(props: any) {
   const params = await props.params; // ← props.paramsをawaitする！
 
   const postData = await getPostData(params.id);

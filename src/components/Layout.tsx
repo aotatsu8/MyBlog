@@ -14,7 +14,7 @@ export const metadata = {
 
 export const name = 'Hachi8';
 
-export default function Layout({ children, home }: { children: React.ReactNode }) {
+export default function Layout({ children, home }: { children: React.ReactNode; home?: boolean }) {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
