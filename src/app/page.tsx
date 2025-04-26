@@ -11,7 +11,7 @@ export default async function Home() {
   console.log(allPostsData);
   return (
     <>
-      <Layout>
+      <Layout home>
         <section className={utileStyles.headingMd}>
           <p>
             フリーランスエンジニアとして活動しているHachi8です。
